@@ -61,12 +61,14 @@ activate Model
 Model --> GoToCommand
 deactivate Model
 
-Model -> MainWindow : handleDirectoryChange(directory)
+MainWindow -> MainWindow : handleDirectoryChange(directory)
+activate MainWindow
 MainWindow -> TravelPlanPanel :setDirectory(directory)
 activate TravelPlanPanel
 
 TravelPlanPanel --> MainWindow
 deactivate TravelPlanPanel
+deactivate MainWindow
 
 create CommandResult
 GoToCommand -> CommandResult
