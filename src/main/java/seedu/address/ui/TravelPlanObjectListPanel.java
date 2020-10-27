@@ -87,7 +87,6 @@ public class TravelPlanObjectListPanel extends UiPart<Region> {
         @Override
         protected void updateItem(Activity activity, boolean empty) {
             super.updateItem(activity, empty);
-            travelPlanPanel.update();
 
             if (empty || activity == null) {
                 setGraphic(null);
@@ -106,7 +105,6 @@ public class TravelPlanObjectListPanel extends UiPart<Region> {
         @Override
         protected void updateItem(Accommodation accommodation, boolean empty) {
             super.updateItem(accommodation, empty);
-            travelPlanPanel.update();
 
             if (empty || accommodation == null) {
                 setGraphic(null);
@@ -124,7 +122,6 @@ public class TravelPlanObjectListPanel extends UiPart<Region> {
         @Override
         protected void updateItem(Friend friend, boolean empty) {
             super.updateItem(friend, empty);
-            travelPlanPanel.update();
 
             if (empty || friend == null) {
                 setGraphic(null);

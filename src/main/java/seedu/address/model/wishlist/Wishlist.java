@@ -10,6 +10,7 @@ import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.UniqueActivityList;
 import seedu.address.model.commons.Name;
 import seedu.address.model.commons.ReadOnlyActivityList;
+import seedu.address.model.commons.TravelPlanObject;
 import seedu.address.model.commons.WanderlustDate;
 
 /**
@@ -37,9 +38,14 @@ public class Wishlist extends Directory implements ReadOnlyActivityList {
     /**
      * Creates an Wishlist using the Activitys in the {@code toBeCopied}
      */
-    public Wishlist(ReadOnlyActivityList toBeCopied) {
+    public Wishlist(Wishlist toBeCopied) {
         this();
         resetData(toBeCopied);
+    }
+
+    @Override
+    public ObservableList<Activity> getObservableActivityList() {
+        return activities.asUnmodifiableObservableList();
     }
 
     /**
@@ -67,10 +73,10 @@ public class Wishlist extends Directory implements ReadOnlyActivityList {
     /**
      * Resets the existing data of this {@code Wishlist} with {@code newData}.
      */
-    public void resetData(ReadOnlyActivityList newData) {
+    public void resetData(Wishlist newData) {
         requireNonNull(newData);
 
-        setActivities(newData.getActivityList());
+        setActivities(newData.getObservableActivityList());
     }
 
     //// activity-level operations
@@ -83,12 +89,31 @@ public class Wishlist extends Directory implements ReadOnlyActivityList {
         return activities.contains(activity);
     }
 
+    @Override
+    public boolean has(TravelPlanObject travelPlanObject) {
+        requireNonNull(travelPlanObject);
+        assert travelPlanObject instanceof Activity;
+        return activities.contains((Activity) travelPlanObject);
+    }
+
+    @Override
+    public void remove(TravelPlanObject travelPlanObject) {
+        assert travelPlanObject instanceof Activity;
+        activities.remove((Activity) travelPlanObject);
+    }
+
     /**
      * Adds an activity to the wishlist.
      * The activity must not already exist in the wishlist.
      */
     public void addActivity(Activity p) {
         activities.add(p);
+    }
+
+    @Override
+    public void add(TravelPlanObject travelPlanObject) {
+        assert travelPlanObject instanceof Activity;
+        activities.add((Activity) travelPlanObject);
     }
 
     /**
@@ -101,6 +126,13 @@ public class Wishlist extends Directory implements ReadOnlyActivityList {
         requireNonNull(editedActivity);
 
         activities.setActivity(target, editedActivity);
+    }
+
+    @Override
+    public void set(TravelPlanObject target, TravelPlanObject editedTravelPlanObject) {
+        requireNonNull(editedTravelPlanObject);
+        assert target instanceof Activity && editedTravelPlanObject instanceof Activity;
+        activities.setActivity((Activity) target, (Activity) editedTravelPlanObject);
     }
 
     /**

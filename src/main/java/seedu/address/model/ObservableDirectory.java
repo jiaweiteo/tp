@@ -28,7 +28,7 @@ public class ObservableDirectory {
     public ObservableDirectory(Directory directory) {
         this.directory = directory;
         dir.setValue(directory);
-        this.observableActivityList.setAll(directory.getActivityList());
+        this.observableActivityList.setAll(directory.getObservableActivityList());
         if (directory instanceof TravelPlan) {
             this.observableAccommodationList.setAll(((TravelPlan) directory).getAccommodationList());
             this.observableFriendList.setAll(((TravelPlan) directory).getFriendList());
@@ -54,7 +54,7 @@ public class ObservableDirectory {
     public void setObservableDirectory(Directory directory) {
         this.directory = directory;
         dir.setValue(directory);
-        setObservableActivityList(directory.getActivityList());
+        setObservableActivityList(directory.getObservableActivityList());
         if (directory instanceof TravelPlan) {
             setObservableAccommodationList(((TravelPlan) directory).getAccommodationList());
             setObservableFriendList(((TravelPlan) directory).getFriendList());

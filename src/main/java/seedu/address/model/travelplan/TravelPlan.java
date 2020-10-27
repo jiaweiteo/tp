@@ -88,12 +88,79 @@ public class TravelPlan extends Directory implements Nameable {
         return startDate.getValue().compareTo(endDate.getValue()) <= 0;
     }
 
+    @Override
+    public ObservableList<Activity> getObservableActivityList() {
+        return null;
+    }
+
     /**
      * Returns true for travel plan.
      */
     @Override
     public boolean isTravelPlan() {
         return true;
+    }
+
+    /**
+     * Returns true if a travel plan object with the same identity as {@code travelPlanObject} exists in the travel plan
+     * object's list.
+     */
+    @Override
+    public boolean has(TravelPlanObject travelPlanObject) {
+        if (travelPlanObject instanceof Accommodation) {
+            return accommodations.hasAccommodation((Accommodation) travelPlanObject);
+        } else if (travelPlanObject instanceof Activity) {
+            return activities.hasActivity((Activity) travelPlanObject);
+        } else { // if travelPlanObject instanceof Friend
+            return friends.hasFriend((Friend) travelPlanObject);
+        }
+    }
+
+    /**
+     * Adds a travel plan object to its corresponding list.
+     * The travel plan object must not already exist in its corresponding list.
+     */
+    @Override
+    public void add(TravelPlanObject travelPlanObject) {
+        if (travelPlanObject instanceof Accommodation) {
+            accommodations.addAccommodation((Accommodation) travelPlanObject);
+        } else if (travelPlanObject instanceof Activity) {
+            activities.addActivity((Activity) travelPlanObject);
+        } else { // if travelPlanObject instanceof Friend
+            friends.addFriend((Friend) travelPlanObject);
+        }
+    }
+
+    /**
+     * Replaces the given travel plan object {@code target} in the list with {@code editedTravelPlanObject}.
+     * {@code target} must exist in the corresponding travel plan object list.
+     * The travel plan object identity of {@code editedTravelPlanObject} must not be the same as another existing
+     * travel plan object in the corresponding travel plan object list.
+     */
+    @Override
+    public void set(TravelPlanObject target, TravelPlanObject editedTravelPlanObject) {
+        if (editedTravelPlanObject instanceof Accommodation) {
+            accommodations.setAccommodation((Accommodation) target, (Accommodation) editedTravelPlanObject);
+        } else if (editedTravelPlanObject instanceof Activity) {
+            activities.setActivity((Activity) target, (Activity) editedTravelPlanObject);
+        } else { // if editedTravelPlanObject instanceof Friend
+            friends.setFriend((Friend) target, (Friend) editedTravelPlanObject);
+        }
+    }
+
+    /**
+     * Removes {@code key} from the corresponding travel plan object list.
+     * {@code key} must exist in the corresponding travel plan object list.
+     */
+    @Override
+    public void remove(TravelPlanObject key) {
+        if (key instanceof Accommodation) {
+            accommodations.removeAccommodation((Accommodation) key);
+        } else if (key instanceof Activity) {
+            activities.removeActivity((Activity) key);
+        } else { // if key instanceof Friend
+            friends.removeFriend((Friend) key);
+        }
     }
     //// travel plan object-level operations
 
