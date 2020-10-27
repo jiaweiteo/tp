@@ -6,10 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.Logic;
 import seedu.address.model.Directory;
-import seedu.address.model.travelplan.TravelPlan;
-import seedu.address.model.wishlist.Wishlist;
+
 
 
 /**
@@ -21,8 +19,6 @@ public class TravelPlanPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(TravelPlanPanel.class);
 
     private Directory directory;
-
-    private Logic logic;
 
     @FXML
     private Label name;
@@ -44,18 +40,14 @@ public class TravelPlanPanel extends UiPart<Region> {
      * Updates the JavaFX properties of {@code TravelPlanPanel} according to the directory.
      */
     public void update() {
-        if (directory instanceof TravelPlan) {
-            TravelPlan travelPlan = (TravelPlan) directory;
-            String cost = travelPlan.getTotalCost();
-            name.setText(travelPlan.getName().toString());
-            totalCost.setText(TOTAL_COST + cost);
-            startDateToEndDate.setText(travelPlan.getStartDate().toString() + " to "
-                    + travelPlan.getEndDate().toString());
+        String cost = directory.getTotalCost();
+        name.setText(directory.getName().toString());
+        totalCost.setText(TOTAL_COST + cost);
+
+        if (directory.isTravelPlan()) {
+            startDateToEndDate.setText(directory.getStartDate().toString() + " to "
+                    + directory.getEndDate().toString());
         } else {
-            name.setText("Wishlist");
-            Wishlist wishlist = (Wishlist) directory;
-            String cost = wishlist.getTotalCost();
-            totalCost.setText(TOTAL_COST + cost);
             startDateToEndDate.setText("");
         }
     }

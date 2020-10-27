@@ -234,7 +234,6 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedTravelPlanObject);
         assert directory instanceof TravelPlan : "Directory must be set to a TravelPlan to call setTravelPlanObject.";
         TravelPlan tp = (TravelPlan) directory;
-        Directory d = tp;
         tp.setTravelPlanObject(target, editedTravelPlanObject);
         observableDirectory.setObservableDirectory(directory);
     }

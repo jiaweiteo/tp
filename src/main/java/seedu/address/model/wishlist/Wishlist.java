@@ -8,13 +8,16 @@ import javafx.collections.ObservableList;
 import seedu.address.model.Directory;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.UniqueActivityList;
+import seedu.address.model.commons.Name;
 import seedu.address.model.commons.ReadOnlyActivityList;
+import seedu.address.model.commons.WanderlustDate;
 
 /**
  * Wraps all data at the travel plan level
  * Duplicates are not allowed (by .isSameTravelPlan comparison)
  */
 public class Wishlist extends Directory implements ReadOnlyActivityList {
+    private static final String NAME = "Wishlist";
 
     private final UniqueActivityList activities;
 
@@ -37,6 +40,18 @@ public class Wishlist extends Directory implements ReadOnlyActivityList {
     public Wishlist(ReadOnlyActivityList toBeCopied) {
         this();
         resetData(toBeCopied);
+    }
+
+    /**
+     * Returns false for wishlist
+     */
+    @Override
+    public boolean isTravelPlan() {
+        return false;
+    }
+
+    public Name getName() {
+        return new Name(NAME);
     }
 
     //// list overwrite operations
@@ -102,6 +117,16 @@ public class Wishlist extends Directory implements ReadOnlyActivityList {
             totalCost += Integer.parseInt(activity.getCostAsString());
         }
         return Integer.toString(totalCost);
+    }
+
+    @Override
+    public WanderlustDate getStartDate() {
+        return null;
+    }
+
+    @Override
+    public WanderlustDate getEndDate() {
+        return null;
     }
 
     //// util methods

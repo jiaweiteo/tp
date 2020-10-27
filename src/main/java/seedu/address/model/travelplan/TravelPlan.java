@@ -88,6 +88,13 @@ public class TravelPlan extends Directory implements Nameable {
         return startDate.getValue().compareTo(endDate.getValue()) <= 0;
     }
 
+    /**
+     * Returns true for travel plan.
+     */
+    @Override
+    public boolean isTravelPlan() {
+        return true;
+    }
     //// travel plan object-level operations
 
     /**
