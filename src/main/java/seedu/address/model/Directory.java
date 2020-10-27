@@ -7,8 +7,6 @@ import seedu.address.model.commons.Name;
 import seedu.address.model.commons.TravelPlanObject;
 import seedu.address.model.commons.WanderlustDate;
 
-import java.util.List;
-
 /**
  * Represents the current directory of wanderlust, which can be instance of TravelPlan or Wishlist
  */
