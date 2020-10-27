@@ -159,15 +159,6 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    private void handleCostChange(Directory directory) {
-        travelPlanPanel.setDirectory(directory);
-        if (directory instanceof Wishlist) {
-            travelPlanObjectListPanel.setActivityTabVisibleOnly();
-        } else {
-            travelPlanObjectListPanel.setAllTabsVisible();
-        }
-    }
-
     /**
      * Sets the default size based on {@code guiSettings}.
      */
