@@ -29,9 +29,11 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      */
     public DeleteCommand parse(String args) throws ParseException {
         String[] keywords = args.split(" ");
+
         if (keywords.length != DeleteCommand.COMMAND_TOKENS) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
+
         try {
             String deleteType = removeDash(keywords[OBJECT_TYPE_POSITION], DeleteCommand.MESSAGE_USAGE);
             Index index = ParserUtil.parseIndex(keywords[INDEX_POSITION]);
