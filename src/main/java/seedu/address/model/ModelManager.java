@@ -176,7 +176,7 @@ public class ModelManager implements Model {
     @Override
     public void addActivity(Activity activity, Index travelPlanIndex) {
         TravelPlan travelPlan = filteredTravelPlans.get(travelPlanIndex.getZeroBased());
-        travelPlan.add(activity);
+        travelPlan.addTpo(activity);
     }
 
     @Override
@@ -226,13 +226,13 @@ public class ModelManager implements Model {
     @Override
     public boolean hasTravelPlanObject(TravelPlanObject tPObj) {
         requireNonNull(tPObj);
-        return directory.has(tPObj);
+        return directory.contains(tPObj);
     }
 
     @Override
     public boolean hasTravelPlanObject(TravelPlanObject tPObj, int travelPlanIndex) {
         requireNonNull(tPObj);
-        return filteredTravelPlans.get(travelPlanIndex).has(tPObj);
+        return filteredTravelPlans.get(travelPlanIndex).contains(tPObj);
     }
 
     @Override
@@ -245,14 +245,14 @@ public class ModelManager implements Model {
     @Override
     public void addTravelPlanObject(TravelPlanObject tPObj) {
         requireNonNull(tPObj);
-        directory.add(tPObj);
+        directory.addTpo(tPObj);
         observableDirectory.setObservableDirectory(directory);
     }
 
     @Override
     public void setTravelPlanObject(TravelPlanObject target, TravelPlanObject editedTravelPlanObject) {
         requireAllNonNull(target, editedTravelPlanObject);
-        directory.set(target, editedTravelPlanObject);
+        directory.setTpo(target, editedTravelPlanObject);
         observableDirectory.setObservableDirectory(directory);
     }
 

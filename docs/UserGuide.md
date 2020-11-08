@@ -565,7 +565,8 @@ Example: `move 2 1`
 
 ### 1. Clearing the data (G)
 
-Clears all the data within _WanderLust_
+Clears all the data within _WanderLust_.
+This command ignores any trailing words after 'clear' (provided there is a space after 'clear') and will execute as usual.
 
 Format: `clear`
 

@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 /**
  * Represents a TravelPlan's start/end date in the travel planner.
@@ -70,12 +71,44 @@ public class WanderlustDate {
         return value.isAfter(toCompare.getValue());
     }
 
+    /**
+     * Returns true if the start date is before or on the same day as end date.
+     */
+    public static boolean isValidStartAndEndDate(WanderlustDate startDate, WanderlustDate endDate) {
+        return startDate.getValue().compareTo(endDate.getValue()) <= 0;
+    }
+
+    /**
+     * Return number of days between {@code startDate} and {@code endDate} inclusive.
+     * @return Number of days between {@code startDate} and {@code endDate} inclusive.
+     */
+    public static long getNumOfDays(WanderlustDate startDate, WanderlustDate endDate) {
+        return ChronoUnit.DAYS.between(startDate.getValue(), endDate.getValue()) + 1;
+    }
+
+    /**
+     * Returns number of days and nights between the start and end date in a String format (e.g. "2D1N").
+     *
+     * @return Number of days (x) and nights (y) between the start and end date in the "xDyN" format.
+     */
+    public static String getNumOfDaysAndNights(WanderlustDate startDate, WanderlustDate endDate) {
+        long numOfDays = getNumOfDays(startDate, endDate);
+        return String.format("%dD%dN", numOfDays, numOfDays - 1);
+    }
 
 
+    // travel plan object-level operations
+
+    /**
+     * Returns this date as a LocalDate object.
+     */
     public LocalDate getValue() {
         return value;
     }
 
+    /**
+     * Returns this date as a string.
+     */
     public String getDate() {
         return date;
     }

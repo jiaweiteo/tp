@@ -98,6 +98,11 @@ public class LogicManagerTest {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredWishlist().remove(0));
     }
 
+    @Test
+    public void getDirectory_onInitialisation_equalsWishlist() {
+        assertEquals(model.getDirectory(), model.getWishlist());
+    }
+
     /**
      * Executes the command and confirms that
      * - no exceptions are thrown <br>

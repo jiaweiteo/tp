@@ -8,7 +8,6 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.UniqueActivityList;
-import seedu.address.model.commons.TravelPlanObject;
 
 /**
  * Represents the list of activities in a travel plan
@@ -16,7 +15,6 @@ import seedu.address.model.commons.TravelPlanObject;
  */
 public class ActivityList {
 
-    public static final ObservableList<Activity> EMPTY_ACTIVITY_LIST = new ActivityList().getObservableActivityList();
     private final UniqueActivityList activities;
 
     /*
@@ -97,11 +95,15 @@ public class ActivityList {
         activities.remove(key);
     }
 
+    //// util methods
+
+    /**
+     * Sorts the list of activities according to the comparator.
+     * @param comparator Comparator to sort the list of activities with.
+     */
     public void sort(Comparator<Activity> comparator) {
         activities.sort(comparator);
     }
-
-    //// util methods
 
     @Override
     public String toString() {
@@ -111,16 +113,11 @@ public class ActivityList {
         return builder.toString();
     }
 
+    /**
+     * Returns the activity list as an {@ObservableList}.
+     */
     public ObservableList<Activity> getObservableActivityList() {
         return activities.asUnmodifiableObservableList();
-    }
-
-    public ObservableList<TravelPlanObject> getTpoList() {
-        return activities.asUnmodifiableObservableTpoList();
-    }
-
-    public UniqueActivityList getModifiableActivityList() {
-        return activities;
     }
 
     @Override

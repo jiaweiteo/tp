@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_STARTANDENDDATE;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
@@ -14,6 +13,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSPORT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
 import static seedu.address.logic.parser.ParserUtil.OBJECT_TYPE_POSITION;
 import static seedu.address.logic.parser.ParserUtil.removeDash;
+import static seedu.address.model.commons.WanderlustDate.isValidStartAndEndDate;
 
 import java.util.stream.Stream;
 
@@ -122,10 +122,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         WanderlustDate startDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_START).get());
         WanderlustDate endDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_END).get());
 
-        if (!Accommodation.isValidStartAndEndDate(startDate, endDate)) {
+        if (!isValidStartAndEndDate(startDate, endDate)) {
             throw new ParseException(MESSAGE_INVALID_STARTANDENDDATE);
         }
-
 
         Accommodation accommodation = new Accommodation(name, startDate, endDate, cost, location);
 
@@ -175,14 +174,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         WanderlustDate startDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_START).get());
         WanderlustDate endDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_END).get());
 
-        if (!TravelPlan.isValidStartAndEndDate(startDate, endDate)) {
+        if (!isValidStartAndEndDate(startDate, endDate)) {
             throw new ParseException(MESSAGE_INVALID_STARTANDENDDATE);
         }
-
-        if (!TravelPlan.isStartDateAfterToday(startDate)) {
-            throw new ParseException(MESSAGE_INVALID_START_DATE);
-        }
-
 
         TravelPlan travelPlan = new TravelPlan(name, startDate, endDate);
 

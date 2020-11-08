@@ -8,6 +8,6 @@ import seedu.address.commons.exceptions.DuplicateException;
  */
 public class DuplicateActivityException extends DuplicateException {
     public DuplicateActivityException() {
-        super("Operation would result in duplicate activities");
+        super("Operation would result in duplicate activities.");
     }
 }

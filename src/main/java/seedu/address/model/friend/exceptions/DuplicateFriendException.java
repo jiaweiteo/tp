@@ -8,6 +8,6 @@ import seedu.address.commons.exceptions.DuplicateException;
  */
 public class DuplicateFriendException extends DuplicateException {
     public DuplicateFriendException() {
-        super("This operation will result in duplicate friends");
+        super("This operation will result in duplicate friends.");
     }
 }

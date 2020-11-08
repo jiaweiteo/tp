@@ -46,7 +46,7 @@ public class TravelPlanPanel extends UiPart<Region> {
         name.setText(directory.getName().toString());
 
         if (directory.isTravelPlan()) {
-            startDateToEndDate.setText(directory.dateTitle());
+            startDateToEndDate.setText(directory.getDateTitle());
         } else {
             startDateToEndDate.setText("");
         }

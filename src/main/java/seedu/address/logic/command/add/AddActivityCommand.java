@@ -1,6 +1,8 @@
 package seedu.address.logic.command.add;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_DATE_NOT_IN_RANGE_ACTIVITY;
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_ACTIVITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_IMPORTANCE;
@@ -38,10 +40,6 @@ public class AddActivityCommand extends AddCommand {
     public static final String MESSAGE_USAGE = MESSAGE_FORMAT + "\n" + MESSAGE_EXAMPLE;
 
     public static final String MESSAGE_SUCCESS = "New activity added: %1$s";
-    public static final String MESSAGE_DUPLICATE_ACTIVITY = "This activity already exists in the activity list. "
-            + "Activities with the same name, location and datetime are considered duplicates.";
-    public static final String MESSAGE_DATE_NOT_IN_RANGE_ACTIVITY = "The activity date and time must be within the "
-            + "travel plan's start date and end date.";
 
 
     private final Activity toAdd;

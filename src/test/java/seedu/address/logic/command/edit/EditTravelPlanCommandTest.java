@@ -2,13 +2,13 @@ package seedu.address.logic.command.edit;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_TRAVELPLAN;
 import static seedu.address.logic.command.CommandTestUtil.DESC_EUROPE;
 import static seedu.address.logic.command.CommandTestUtil.DESC_NYC;
 import static seedu.address.logic.command.CommandTestUtil.VALID_NAME_NYC;
 import static seedu.address.logic.command.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.command.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.command.edit.EditTravelPlanCommand.MESSAGE_EDIT_TRAVELPLAN_SUCCESS;
-import static seedu.address.model.travelplan.TravelPlan.MESSAGE_DUPLICATE_TRAVELPLAN;
 import static seedu.address.testutil.typicals.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.typicals.TypicalIndexes.INDEX_SECOND;
 import static seedu.address.testutil.typicals.TypicalTravelPlans.AUSTRALIA_TRIP;

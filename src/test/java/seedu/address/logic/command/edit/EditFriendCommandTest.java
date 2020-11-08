@@ -2,6 +2,7 @@ package seedu.address.logic.command.edit;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_FRIEND;
 import static seedu.address.logic.command.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.command.CommandTestUtil.DESC_BOB;
 import static seedu.address.logic.command.CommandTestUtil.VALID_NAME_BOB;
@@ -9,7 +10,6 @@ import static seedu.address.logic.command.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.command.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.command.edit.EditFriendCommand.MESSAGE_EDIT_FRIEND_SUCCESS;
 import static seedu.address.logic.parser.ParserUtil.FRIEND_INDEX;
-import static seedu.address.model.friend.Friend.MESSAGE_DUPLICATE_FRIEND;
 import static seedu.address.testutil.typicals.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.typicals.TypicalIndexes.INDEX_SECOND;
 import static seedu.address.testutil.typicals.TypicalTravelPlans.getTypicalTravelPlanner;

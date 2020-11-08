@@ -26,7 +26,17 @@ public class Messages {
     public static final String MESSAGE_TRAVELPLANS_LISTED_OVERVIEW = "%1$d travel plans listed!";
     public static final String MESSAGE_INVALID_STARTANDENDDATE = "Start Date should be before or "
             + "on the same date as End Date.";
-    public static final String MESSAGE_INVALID_START_DATE = "Start Date can only be today's date or any date "
-            + "after today's date.";
-    public static final String MESSAGE_DELETE_SUCCESS = "Deleted %s:\n%1$s";
+    public static final String MESSAGE_DUPLICATE_ACCOMMODATION = "This accommodation already exists in the travel"
+            + " plan. Accommodations with the same name, start date and end date are considered duplicates.";
+    public static final String MESSAGE_DATE_NOT_IN_RANGE_ACCOMMODATION = "The accommodation start date and/or end date"
+            + " must be within the travel plan's start date and end date.";
+    public static final String MESSAGE_DUPLICATE_ACTIVITY = "This activity already exists in the directory. "
+            + "Activities with the same name, location and datetime are considered duplicates.";
+    public static final String MESSAGE_DATE_NOT_IN_RANGE_ACTIVITY = "The activity date and time must be within the "
+            + "travel plan's start date and end date.";
+    public static final String MESSAGE_DUPLICATE_FRIEND = "This friend already exists in the travel plan. "
+            + "Friends cannot have the same passport number.";
+    public static final String MESSAGE_DUPLICATE_TRAVELPLAN = "This travel plan already exists in the travel planner. "
+            + "Travel plans cannot have the same name.";
+
 }

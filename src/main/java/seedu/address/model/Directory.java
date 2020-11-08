@@ -46,7 +46,7 @@ public abstract class Directory {
      * Returns true if a travel plan object with the same identity as {@code travelPlanObject} exists in the
      * corresponding travel plan object list in the current directory.
      */
-    public abstract boolean has(TravelPlanObject travelPlanObject);
+    public abstract boolean contains(TravelPlanObject travelPlanObject);
 
     /**
      * Removes {@code travelPlanObject} from the corresponding travel plan object list in the current directory.
@@ -58,7 +58,7 @@ public abstract class Directory {
      * Adds a travel plan object to its corresponding travel plan object list in the current directory.
      * The travel plan object must not already exist in its corresponding list.
      */
-    public abstract void add(TravelPlanObject travelPlanObject);
+    public abstract void addTpo(TravelPlanObject travelPlanObject);
 
     /**
      * Replaces the given travel plan object {@code target} in the corresponding travel plan object list in the current
@@ -67,10 +67,10 @@ public abstract class Directory {
      * The travel plan object identity of {@code editedTravelPlanObject} must not be the same as another existing
      * travel plan object in the corresponding travel plan object list in the current directory.
      */
-    public abstract void set(TravelPlanObject target, TravelPlanObject editedTravelPlanObject);
+    public abstract void setTpo(TravelPlanObject target, TravelPlanObject editedTravelPlanObject);
 
     /**
      * Returns the date title of the current directory as {@code String}.
      */
-    public abstract String dateTitle();
+    public abstract String getDateTitle();
 }

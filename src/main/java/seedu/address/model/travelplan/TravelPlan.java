@@ -1,11 +1,12 @@
 package seedu.address.model.travelplan;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_STARTANDENDDATE;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.commons.WanderlustDate.getNumOfDaysAndNights;
+import static seedu.address.model.commons.WanderlustDate.isValidStartAndEndDate;
 
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 import javafx.collections.ObservableList;
@@ -19,15 +20,13 @@ import seedu.address.model.commons.WanderlustDate;
 import seedu.address.model.friend.Friend;
 
 /**
- * Represents a travel plan in the travel planner
- * Duplicates are not allowed (by .isSameTravelPlan comparison)
+ * Represents a travel plan in the travel planner.
+ * Duplicates are not allowed (by .isSameTravelPlan comparison).
  */
 public class TravelPlan extends Directory implements Nameable {
 
     public static final String MESSAGE_CONSTRAINTS = "Start Date should be before or on the same date as End Date.";
     public static final String TRAVEL_PLAN_WORD = "travelplan";
-    public static final String MESSAGE_DUPLICATE_TRAVELPLAN = "This travel plan already exists in the travel planner. "
-            + "Travel plans cannot have the same name.";
 
 
     // Identity fields
@@ -41,7 +40,12 @@ public class TravelPlan extends Directory implements Nameable {
     private final FriendList friends = new FriendList();
 
     /**
-     * Creates an empty TravelPlan with only the name, startDate and endDate.
+     * Creates an empty TravelPlan with the name, startDate and endDate.
+     *
+     * @param name Name of the travel plan.
+     * @param startDate Start date of the travel plan.
+     * @param endDate End date of the travel plan.
+     * @return An empty travel plan with the specified name, start date and end date.
      */
     public TravelPlan(Name name, WanderlustDate startDate, WanderlustDate endDate) {
         requireAllNonNull(name, startDate, endDate);
@@ -52,8 +56,15 @@ public class TravelPlan extends Directory implements Nameable {
     }
 
     /**
-     * Creates an TravelPlan using the Accommodations, Activities and Friends in the {@code accommodationsToBeCopied},
-     * {@code activitiesToBeCopied} and {@code friendsTobeCopied}
+     * Creates a TravelPlan using the specified Accommodations, Activities and Friends.
+     *
+     * @param name Name of the travel plan.
+     * @param startDate Start date of the travel plan.
+     * @param endDate End date of the travel plan.
+     * @param accommodationsToBeCopied List of accommodations to be added to the travel plan.
+     * @param activitiesToBeCopied List of activities to be added to the travel plan.
+     * @param friendsTobeCopied List of friends to be added to the travel plan.
+     * @return A travel plan with the specified name, start date, end date, accommodations, activities and friends.
      */
     public TravelPlan(Name name, WanderlustDate startDate, WanderlustDate endDate,
                       ActivityList activitiesToBeCopied,
@@ -69,7 +80,10 @@ public class TravelPlan extends Directory implements Nameable {
     }
 
     /**
-     * Creates a TravelPlan using the TravelPlan in the {@code toBeCopied}
+     * Creates a TravelPlan using the specified TravelPlan.
+     *
+     * @param toBeCopied TravelPlan to copy into the new travel plan.
+     * @return A copy of the travel plan {@code toBeCopied}.
      */
     public TravelPlan(TravelPlan toBeCopied) {
         requireAllNonNull(toBeCopied.name, toBeCopied.startDate, toBeCopied.endDate);
@@ -83,34 +97,19 @@ public class TravelPlan extends Directory implements Nameable {
      * Resets the existing data of this {@code TravelPlan} with {@code newData}.
      */
     public void resetData(TravelPlan newData) {
+        requireNonNull(newData);
+
         accommodations.resetData(newData.getAccommodationList());
         activities.resetData(newData.getActivityList());
         friends.resetData(newData.getFriendList());
     }
 
     /**
-     * Returns true if the start date is before or on the same day as end date.
-     */
-    public static boolean isValidStartAndEndDate(WanderlustDate startDate, WanderlustDate endDate) {
-        return startDate.getValue().compareTo(endDate.getValue()) <= 0;
-    }
-
-    /**
-     * Returns true if the start date is set on today's date or after today's date. Prevent any date inputs that are
-     * too old (Etc, 1111-11-11)
-     */
-    public static boolean isStartDateAfterToday(WanderlustDate startDate) {
-        return startDate.getValue().compareTo(LocalDate.now()) >= 0;
-    }
-
-    //// travel plan object-level operations
-
-    /**
      * Returns true if a travel plan object with the same identity as {@code travelPlanObject} exists in the travel plan
      * object's list.
      */
     @Override
-    public boolean has(TravelPlanObject travelPlanObject) {
+    public boolean contains(TravelPlanObject travelPlanObject) {
         if (travelPlanObject instanceof Accommodation) {
             return accommodations.hasAccommodation((Accommodation) travelPlanObject);
         } else if (travelPlanObject instanceof Activity) {
@@ -125,7 +124,7 @@ public class TravelPlan extends Directory implements Nameable {
      * The travel plan object must not already exist in its corresponding list.
      */
     @Override
-    public void add(TravelPlanObject travelPlanObject) {
+    public void addTpo(TravelPlanObject travelPlanObject) {
         if (travelPlanObject instanceof Accommodation) {
             accommodations.addAccommodation((Accommodation) travelPlanObject);
         } else if (travelPlanObject instanceof Activity) {
@@ -142,7 +141,7 @@ public class TravelPlan extends Directory implements Nameable {
      * travel plan object in the corresponding travel plan object list.
      */
     @Override
-    public void set(TravelPlanObject target, TravelPlanObject editedTravelPlanObject) {
+    public void setTpo(TravelPlanObject target, TravelPlanObject editedTravelPlanObject) {
         if (editedTravelPlanObject instanceof Accommodation) {
             accommodations.setAccommodation((Accommodation) target, (Accommodation) editedTravelPlanObject);
         } else if (editedTravelPlanObject instanceof Activity) {
@@ -167,23 +166,6 @@ public class TravelPlan extends Directory implements Nameable {
         }
     }
 
-    /**
-     * Generates the total cost of the travel plan, considering the cost of activities and accommodations.
-     * @return String Total cost in string.
-     */
-    public String getTotalCost() {
-        int totalCost = 0;
-        for (int i = 0; i < activities.getObservableActivityList().size(); i++) {
-            Activity tempActivity = activities.getObservableActivityList().get(i);
-            totalCost += Integer.parseInt(tempActivity.getCostAsString());
-        }
-        for (int i = 0; i < accommodations.getObservableAccommodationList().size(); i++) {
-            Accommodation tempAccommodation = accommodations.getObservableAccommodationList().get(i);
-            totalCost += Integer.parseInt(tempAccommodation.getCostAsString());
-        }
-        return Integer.toString(totalCost);
-    }
-
     //// util methods
 
     //// travel plan identity methods
@@ -193,10 +175,18 @@ public class TravelPlan extends Directory implements Nameable {
         return name;
     }
 
+    /**
+     * Returns start date of the travel plan.
+     * @return Start date of the travel plan.
+     */
     public WanderlustDate getStartDate() {
         return startDate;
     }
 
+    /**
+     * Returns end date of the travel plan.
+     * @return End date of the travel plan.
+     */
     public WanderlustDate getEndDate() {
         return endDate;
     }
@@ -219,15 +209,14 @@ public class TravelPlan extends Directory implements Nameable {
                 && otherTravelPlan.getName().equals(getName());
     }
 
-    public long getNumOfDays() {
-        return ChronoUnit.DAYS.between(startDate.getValue(), endDate.getValue());
-    }
-
-
-
-
-    public String dateTitle() {
-        return getStartDate().toString() + " to " + getEndDate().toString() + " (" + getNumOfDays() + " days)";
+    /**
+     * Returns a string representing the start and end date of the travel plan.
+     * E.g. 20 Dec 2020 to 25 Dec 2020 (6D5N).
+     * @return
+     */
+    public String getDateTitle() {
+        return getStartDate().toString() + " to " + getEndDate().toString() + " ("
+                + getNumOfDaysAndNights(startDate, endDate) + ")";
     }
 
     @Override
@@ -238,7 +227,7 @@ public class TravelPlan extends Directory implements Nameable {
                 .append(getStartDate())
                 .append("\nEnd Date: ")
                 .append(getEndDate())
-                .append("\n(").append(getNumOfDays()).append(" days)")
+                .append("\n(").append(getNumOfDaysAndNights(startDate, endDate)).append(")")
                 .append("\n\n" + accommodations)
                 .append(activities)
                 .append(friends);
@@ -247,28 +236,63 @@ public class TravelPlan extends Directory implements Nameable {
 
     //// travel plan data methods
 
+    /**
+     * Returns this travel plan's accommodation list as an {@AccommodationList}.
+     */
     public AccommodationList getAccommodationList() {
         return accommodations;
     }
 
+    /**
+     * Returns this travel plan's accommodation list as an {@ObservableList}.
+     */
     public ObservableList<Accommodation> getObservableAccommodationList() {
         return accommodations.getObservableAccommodationList();
     }
 
+    /**
+     * Returns this travel plan's activity list as an {@ActivityList}.
+     */
     public ActivityList getActivityList() {
         return activities;
     }
 
+    /**
+     * Returns this travel plan's activity list as an {@ObservableList}.
+     */
     public ObservableList<Activity> getObservableActivityList() {
         return activities.getObservableActivityList();
     }
 
+    /**
+     * Returns this travel plan's friend list as a {@FriendList}.
+     */
     public FriendList getFriendList() {
         return friends;
     }
 
+    /**
+     * Returns this travel plan's friend list as an {@ObservableList}.
+     */
     public ObservableList<Friend> getObservableFriendList() {
         return friends.getObservableFriendList();
+    }
+
+    /**
+     * Generates the total cost of the travel plan, which includes the cost of activities and accommodations.
+     * @return Total cost of the travel plan as a string.
+     */
+    public String getTotalCost() {
+        int totalCost = 0;
+        for (int i = 0; i < activities.getObservableActivityList().size(); i++) {
+            Activity tempActivity = activities.getObservableActivityList().get(i);
+            totalCost += Integer.parseInt(tempActivity.getCostAsString());
+        }
+        for (int i = 0; i < accommodations.getObservableAccommodationList().size(); i++) {
+            Accommodation tempAccommodation = accommodations.getObservableAccommodationList().get(i);
+            totalCost += Integer.parseInt(tempAccommodation.getCostAsString());
+        }
+        return Integer.toString(totalCost);
     }
 
     @Override

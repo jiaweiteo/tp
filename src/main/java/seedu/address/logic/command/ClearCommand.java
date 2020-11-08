@@ -5,9 +5,8 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.model.Model;
 import seedu.address.model.TravelPlanner;
 
-
 /**
- * Clears the address book.
+ * Clears the entire travel planner including wishlist and travel plans.
  */
 public class ClearCommand extends Command {
 

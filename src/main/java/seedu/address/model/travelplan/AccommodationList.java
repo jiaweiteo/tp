@@ -15,9 +15,6 @@ import seedu.address.model.accommodation.UniqueAccommodationList;
  */
 public class AccommodationList {
 
-    public static final ObservableList<Accommodation> EMPTY_ACCOMMODATION_LIST =
-            new AccommodationList().getObservableAccommodationList();
-
     private final UniqueAccommodationList accommodations;
 
     /*
@@ -98,11 +95,15 @@ public class AccommodationList {
         accommodations.remove(key);
     }
 
+    //// util methods
+
+    /**
+     * Sorts the list of accommodations according to the comparator.
+     * @param comparator Comparator to sort the list of accommodations with.
+     */
     public void sort(Comparator<Accommodation> comparator) {
         accommodations.sort(comparator);
     }
-
-    //// util methods
 
     @Override
     public String toString() {
@@ -112,6 +113,9 @@ public class AccommodationList {
         return builder.toString();
     }
 
+    /**
+     * Returns the accommodation list as an {@ObservableList}.
+     */
     public ObservableList<Accommodation> getObservableAccommodationList() {
         return accommodations.asUnmodifiableObservableList();
     }
@@ -128,7 +132,4 @@ public class AccommodationList {
         return accommodations.hashCode();
     }
 
-    public UniqueAccommodationList getModifiableAccommodationList() {
-        return accommodations;
-    }
 }

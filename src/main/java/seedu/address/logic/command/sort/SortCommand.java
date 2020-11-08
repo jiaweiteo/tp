@@ -24,7 +24,7 @@ public abstract class SortCommand extends Command {
             + "             -accommodation\n"
             + "             -friend\n"
             + "Sorting Keyword: " + KEYWORD_NAME + ", " + KEYWORD_COST + ", " + KEYWORD_IMPORTANCE + ", " + KEYWORD_DATE
-            + ", " + KEYWORD_DATETIME + KEYWORD_MOBILE + ", " + KEYWORD_PASSPORT + "\n"
+            + ", " + KEYWORD_DATETIME + ", " + KEYWORD_MOBILE + ", " + KEYWORD_PASSPORT + "\n"
             + "Example: " + COMMAND_WORD + " -activity cost";
 
     private final String sortKeyword;

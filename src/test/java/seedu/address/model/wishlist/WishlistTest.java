@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.typicals.TypicalActivities.ARCHERY;
 import static seedu.address.testutil.typicals.TypicalActivities.getTypicalWishlist;
+import static seedu.address.testutil.typicals.TypicalFriends.ALICE;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -30,12 +31,22 @@ public class WishlistTest {
     }
 
     @Test
+    public void constructor_withValidWishlist_setsData() {
+        Wishlist wishlist = new Wishlist(getTypicalWishlist());
+        assertEquals(wishlist, getTypicalWishlist());
+    }
+
+    @Test void constructor_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new Wishlist(null));
+    }
+
+    @Test
     public void resetData_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> wishlist.resetData(null));
     }
 
     @Test
-    public void resetData_withValidReadOnlyWishlist_replacesData() {
+    public void resetData_withValidWishlist_replacesData() {
         Wishlist newData = getTypicalWishlist();
         wishlist.resetData(newData);
         assertEquals(newData, wishlist);
@@ -68,12 +79,36 @@ public class WishlistTest {
     }
 
     @Test
+    public void contains_activityInWishlist_returnsTrue() {
+        wishlist.addTpo(ARCHERY);
+        assertTrue(wishlist.contains(ARCHERY));
+    }
+
+    @Test
+    public void contains_activityNotInWishlist_returnsFalse() {
+        assertFalse(wishlist.contains(ARCHERY));
+    }
+
+    @Test
+    public void contains_nonActivityTpo_throwsAssertionError() {
+        assertThrows(AssertionError.class, () -> wishlist.contains(ALICE));
+    }
+
+    @Test
     public void getWishlist_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> wishlist.getObservableActivityList().remove(0));
     }
 
+    @Test
+    public void setActivity_activityInWishlist_editsActivity() {
+        wishlist.addActivity(ARCHERY);
+        Activity editedActivity = new ActivityBuilder(ARCHERY).withCost("10").build();
+        wishlist.setActivity(ARCHERY, editedActivity);
+        assertTrue(wishlist.getObservableActivityList().contains(editedActivity));
+        assertFalse(wishlist.getObservableActivityList().contains(ARCHERY));
+    }
+
     /**
-     * TODO
      * A stub ReadOnlyWishlist whose activities list can violate interface constraints.
      */
     private static class WishlistStub extends Wishlist {

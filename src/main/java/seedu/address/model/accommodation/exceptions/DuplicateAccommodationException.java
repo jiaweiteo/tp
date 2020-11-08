@@ -8,6 +8,6 @@ import seedu.address.commons.exceptions.DuplicateException;
  */
 public class DuplicateAccommodationException extends DuplicateException {
     public DuplicateAccommodationException() {
-        super("Operation would result in duplicate accommodations");
+        super("Operation would result in duplicate accommodations.");
     }
 }

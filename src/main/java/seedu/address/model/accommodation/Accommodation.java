@@ -3,8 +3,9 @@ package seedu.address.model.accommodation;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_STARTANDENDDATE;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.commons.WanderlustDate.getNumOfDaysAndNights;
+import static seedu.address.model.commons.WanderlustDate.isValidStartAndEndDate;
 
-import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 import seedu.address.model.commons.Cost;
@@ -20,9 +21,6 @@ import seedu.address.model.commons.WanderlustDate;
 public class Accommodation extends TravelPlanObject {
 
     public static final String TPO_WORD = "accommodation";
-    public static final String MESSAGE_DUPLICATE_ACCOMMODATION = "This accommodation already exists in the "
-            + "accommodation list. Accommodations with the same name, start date and end date are considered "
-            + "duplicates.";
 
     // identity fields
     private final Name name;
@@ -44,13 +42,6 @@ public class Accommodation extends TravelPlanObject {
         this.endDate = endDate;
         this.cost = cost;
         this.location = location;
-    }
-
-    /**
-     * Returns true if the start date is before or on the same day as end date.
-     */
-    public static boolean isValidStartAndEndDate(WanderlustDate startDate, WanderlustDate endDate) {
-        return startDate.getValue().compareTo(endDate.getValue()) <= 0;
     }
 
     @Override
@@ -94,12 +85,14 @@ public class Accommodation extends TravelPlanObject {
                 && otherAccommodation.getEndDate().equals(getEndDate());
     }
 
-    public long getNumOfDays() {
-        return ChronoUnit.DAYS.between(startDate.getValue(), endDate.getValue());
-    }
-
+    /**
+     * Returns a string representing the start and end date of the accommodation.
+     * E.g. 20 Dec 2020 to 25 Dec 2020 (6D5N).
+     * @return
+     */
     public String dateString() {
-        return getStartDate().toString() + " to " + getEndDate().toString() + " (" + getNumOfDays() + " days)";
+        return getStartDate().toString() + " to " + getEndDate().toString() + " ("
+                + getNumOfDaysAndNights(startDate, endDate) + ")";
     }
 
     /**

@@ -1,12 +1,12 @@
 package seedu.address.logic.command.edit;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_TRAVELPLAN;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_STARTANDENDDATE;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
-import static seedu.address.model.travelplan.TravelPlan.MESSAGE_DUPLICATE_TRAVELPLAN;
+import static seedu.address.model.commons.WanderlustDate.isValidStartAndEndDate;
 
 import java.util.List;
 
@@ -101,16 +101,10 @@ public class EditTravelPlanCommand extends EditCommand {
                 .orElse(travelPlanToEdit.getStartDate());
         WanderlustDate updatedEndDate = editTravelPlanDescriptor.getEndDate().orElse(travelPlanToEdit.getEndDate());
 
-        boolean isValidDate = TravelPlan.isValidStartAndEndDate(updatedStartDate, updatedEndDate);
+        boolean isValidDate = isValidStartAndEndDate(updatedStartDate, updatedEndDate);
 
         if (!isValidDate) {
             throw new CommandException(MESSAGE_INVALID_STARTANDENDDATE);
-        }
-
-        boolean isValidStartDate = TravelPlan.isStartDateAfterToday(updatedStartDate);
-
-        if (!isValidStartDate) {
-            throw new CommandException(MESSAGE_INVALID_START_DATE);
         }
 
         ActivityList activities = travelPlanToEdit.getActivityList();

@@ -27,7 +27,7 @@ public class ObservableDirectory {
 
     /**
      * Instantiates an observable view of the current directory.
-     * @param directory the directory representing the default directory.
+     * @param directory The directory representing the default directory.
      */
     public ObservableDirectory(Directory directory) {
         dir.setValue(directory);
@@ -39,26 +39,44 @@ public class ObservableDirectory {
         }
     }
 
+    /**
+     * Returns the cost of the directory as an observable StringProperty.
+     */
     public StringProperty getObservableCost() {
         return observableCost;
     }
 
+    /**
+     * Returns the directory as an observable ObjectProperty.
+     */
     public ObjectProperty<Directory> get() {
         return dir;
     }
 
+    /**
+     * Returns the activities in the directory as an ObservableList.
+     */
     public ObservableList<Activity> getObservableActivityList() {
         return this.observableActivityList;
     }
 
+    /**
+     * Returns the accommodations in the directory as an ObservableList.
+     */
     public ObservableList<Accommodation> getObservableAccommodationList() {
         return this.observableAccommodationList;
     }
 
+    /**
+     * Returns the friends in the directory as an ObservableList.
+     */
     public ObservableList<Friend> getObservableFriendList() {
         return this.observableFriendList;
     }
 
+    /**
+     * Sets the observable directory to observe the specified directory.
+     */
     public void setObservableDirectory(Directory directory) {
         dir.setValue(directory);
         observableCost.setValue(TOTAL_COST + directory.getTotalCost());
@@ -72,26 +90,37 @@ public class ObservableDirectory {
         }
     }
 
+    /**
+     * Sets the observable directory to observe the activity list {@code newActivities}.
+     */
     private void setObservableActivityList(ObservableList<Activity> newActivities) {
         this.observableActivityList.setAll(newActivities);
     }
 
+    /**
+     * Sets the observable directory to observe the friend list {@code newFriends}.
+     */
     private void setObservableFriendList(ObservableList<Friend> newFriends) {
         this.observableFriendList.setAll(newFriends);
     }
 
+    /**
+     * Sets the observable directory to observe the accommodation list {@code newAccommodations}.
+     */
     private void setObservableAccommodationList(ObservableList<Accommodation> newAccommodations) {
         this.observableAccommodationList.setAll(newAccommodations);
     }
 
-    private void clearObservableActivityList() {
-        this.observableActivityList.clear();
-    }
-
+    /**
+     * Clears the observable friend list.
+     */
     private void clearObservableFriendList() {
         this.observableFriendList.clear();
     }
 
+    /**
+     * Clears the observable accommodation list.
+     */
     private void clearObservableAccommodationList() {
         this.observableAccommodationList.clear();
     }

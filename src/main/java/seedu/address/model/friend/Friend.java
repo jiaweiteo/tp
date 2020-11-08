@@ -14,8 +14,6 @@ import seedu.address.model.commons.TravelPlanObject;
 public class Friend extends TravelPlanObject {
 
     public static final String TPO_WORD = "friend";
-    public static final String MESSAGE_DUPLICATE_FRIEND = "This friend already exists in the travel plan! "
-            + "Friends cannot have the same passport number.";
 
     // Identity fields
     private final Passport passport;

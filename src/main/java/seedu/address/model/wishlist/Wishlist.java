@@ -14,8 +14,8 @@ import seedu.address.model.commons.TravelPlanObject;
 import seedu.address.model.commons.WanderlustDate;
 
 /**
- * Wraps all data at the travel plan level
- * Duplicates are not allowed (by .isSameTravelPlan comparison)
+ * Represents a Wishlist in Wanderlust.
+ * There should only be one Wishlist in entire Wanderlust.
  */
 public class Wishlist extends Directory {
 
@@ -35,10 +35,11 @@ public class Wishlist extends Directory {
     public Wishlist() {}
 
     /**
-     * Creates an Wishlist using the Activities in the {@code toBeCopied}
+     * Creates an Wishlist using the Activities in the {@code toBeCopied}.
      */
     public Wishlist(Wishlist toBeCopied) {
         this();
+        requireNonNull(toBeCopied);
         resetData(toBeCopied);
     }
 
@@ -71,29 +72,23 @@ public class Wishlist extends Directory {
         return activities.contains(activity);
     }
 
-    /**
-     *  {@see hasActivity}
-     */
     @Override
-    public boolean has(TravelPlanObject travelPlanObject) {
+    public boolean contains(TravelPlanObject travelPlanObject) {
         requireNonNull(travelPlanObject);
         assert travelPlanObject instanceof Activity;
         return activities.contains((Activity) travelPlanObject);
     }
 
     /**
-     * Adds an activity to the wishlist.
+     * Adds an activity in the form of Activity to the wishlist.
      * The activity must not already exist in the wishlist.
      */
     public void addActivity(Activity p) {
         activities.add(p);
     }
 
-    /**
-     *  {@see addActivity}
-     */
     @Override
-    public void add(TravelPlanObject travelPlanObject) {
+    public void addTpo(TravelPlanObject travelPlanObject) {
         assert travelPlanObject instanceof Activity;
         activities.add((Activity) travelPlanObject);
     }
@@ -110,12 +105,10 @@ public class Wishlist extends Directory {
         activities.setActivity(target, editedActivity);
     }
 
-    /**
-     *  {@see setActivity}
-     */
     @Override
-    public void set(TravelPlanObject target, TravelPlanObject editedTravelPlanObject) {
+    public void setTpo(TravelPlanObject target, TravelPlanObject editedTravelPlanObject) {
         requireNonNull(editedTravelPlanObject);
+
         assert target instanceof Activity && editedTravelPlanObject instanceof Activity;
         activities.setActivity((Activity) target, (Activity) editedTravelPlanObject);
     }
@@ -133,6 +126,10 @@ public class Wishlist extends Directory {
         activities.remove(key);
     }
 
+    /**
+     * Generates the total cost of the wishlist, which includes the cost of activities and accommodations.
+     * @return Total cost of the wishlist as a string.
+     */
     public String getTotalCost() {
         int totalCost = 0;
         for (Activity activity : activities) {
@@ -151,19 +148,21 @@ public class Wishlist extends Directory {
         return null;
     }
 
-    /**
-     *  {@see removeActivity}
-     */
     @Override
     public void remove(TravelPlanObject travelPlanObject) {
         activities.remove((Activity) travelPlanObject);
     }
 
+    //// util methods
+
+    /**
+     * Sorts the list of activities according to the comparator.
+     * @param comparator Comparator to sort the list of activities with.
+     */
     public void sort(Comparator<Activity> comparator) {
         activities.sort(comparator);
     }
 
-    //// util methods
 
     @Override
     public boolean isTravelPlan() {
@@ -178,16 +177,15 @@ public class Wishlist extends Directory {
         return builder.toString();
     }
 
+    /**
+     * Returns the activity list in the wishlist as an {@code ObservableList}.
+     */
     public ObservableList<Activity> getObservableActivityList() {
         return activities.asUnmodifiableObservableList();
     }
 
-    public UniqueActivityList getUniqueActivityList() {
-        return activities;
-    }
-
     @Override
-    public String dateTitle() {
+    public String getDateTitle() {
         return null;
     }
 

@@ -95,11 +95,15 @@ public class FriendList {
         friends.remove(key);
     }
 
+    //// util methods
+
+    /**
+     * Sorts the list of friends according to the comparator.
+     * @param comparator Comparator to sort the list of friends with.
+     */
     public void sort(Comparator<Friend> comparator) {
         friends.sort(comparator);
     }
-
-    //// util methods
 
     @Override
     public String toString() {
@@ -109,6 +113,9 @@ public class FriendList {
         return builder.toString();
     }
 
+    /**
+     * Returns the friend list as an {@ObservableList}.
+     */
     public ObservableList<Friend> getObservableFriendList() {
         return friends.asUnmodifiableObservableList();
     }

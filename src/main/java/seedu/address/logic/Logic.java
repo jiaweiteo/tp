@@ -55,6 +55,9 @@ public interface Logic {
      */
     Directory getDirectory();
 
+    /**
+     * Returns the ObservableDirectory that is observed by the Ui.
+     */
     ObservableDirectory getObservableDirectory();
 
     /**

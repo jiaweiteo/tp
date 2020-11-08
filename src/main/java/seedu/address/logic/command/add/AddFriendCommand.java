@@ -1,11 +1,11 @@
 package seedu.address.logic.command.add;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_FRIEND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MOBILE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSPORT;
 import static seedu.address.logic.parser.ParserUtil.FRIEND_INDEX;
-import static seedu.address.model.friend.Friend.MESSAGE_DUPLICATE_FRIEND;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.command.CommandResult;
