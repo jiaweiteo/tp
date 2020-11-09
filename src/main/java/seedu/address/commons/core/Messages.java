@@ -34,4 +34,7 @@ public class Messages {
     public static final String MESSAGE_DUPLICATE_TRAVELPLAN = "This travel plan already exists in the travel planner. "
             + "Travel plans cannot have the same name.";
     public static final String MESSAGE_STRING_EXCEED_CHARACTER_LIMIT = "%s exceeds character limit of %d characters!";
+    public static final String MESSAGE_TPO_OUTSIDE_EDITED_TRAVELPLAN_DATE_REGION = "There are activities and/or "
+            + "accommodations that lie outside of the edited date region of this travel plan. Please adjust their "
+            + "dates before editing the travel plan dates.";
 }

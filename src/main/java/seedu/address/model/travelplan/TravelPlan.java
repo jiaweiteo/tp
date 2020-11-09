@@ -295,6 +295,26 @@ public class TravelPlan extends Directory implements Nameable {
         return Integer.toString(totalCost);
     }
 
+    /**
+     * Returns true if there is an activity or accommodation in the travel plan that is before its start date.
+     */
+    public boolean hasEarlierDateObject() {
+        return activities.getObservableActivityList().parallelStream().filter(activity ->
+                activity.getActivityDateTime().isBefore(this.startDate)).count() > 0
+                || accommodations.getObservableAccommodationList().parallelStream().filter(accommodation ->
+                accommodation.getStartDate().isBefore(this.startDate)).count() > 0;
+    }
+
+    /**
+     * Returns true if there is an activity or accommodation in the travel plan that is after its end date.
+     */
+    public boolean hasLaterDateObject() {
+        return activities.getObservableActivityList().parallelStream().filter(activity ->
+                activity.getActivityDateTime().isAfter(this.endDate)).count() > 0
+                || accommodations.getObservableAccommodationList().parallelStream().filter(accommodation ->
+                accommodation.getEndDate().isAfter(this.endDate)).count() > 0;
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
